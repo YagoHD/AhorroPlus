@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AhorroPlus">
         <activity
+            android:name=".MyListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
