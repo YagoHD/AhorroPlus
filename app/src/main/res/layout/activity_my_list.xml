@@ -11,23 +11,27 @@
         android:id="@+id/tituloLISTA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="LISTA"
         android:textColor="#14213d"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/Buscador"
         android:layout_width="194dp"
         android:layout_height="49dp"
+        android:textColor="#14213d"
         android:layout_marginStart="75dp"
+        android:textStyle="italic"
         android:layout_marginTop="36dp"
-        android:text="AutoCompleteTextView"
+        android:completionHint="Producto"
+        android:hint="Producto"
+        android:completionThreshold="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +45,57 @@
         android:layout_marginEnd="75dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/autoCompleteTextView"
+        app:layout_constraintStart_toEndOf="@+id/Buscador"
         app:layout_constraintTop_toBottomOf="@+id/tituloLISTA"
-        tools:srcCompat="@android:drawable/ic_menu_search" />
+        android:src="@android:drawable/ic_menu_search" />
+
+    <ImageButton
+        android:id="@+id/imageButonPapelera"
+        android:layout_width="64dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="108dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_compartimiento" />
+
+    <ImageButton
+        android:id="@+id/imageButonAtras"
+        android:layout_width="79dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="108dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_hacia_atras" />
+
+    <EditText
+        android:id="@+id/editTextNumberSigned"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:textColor="#14213d"
+        android:inputType="number"
+        android:text="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tituloLISTA"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="155dp"
+
+        android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButonPapelera"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/imageButonAtras" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
