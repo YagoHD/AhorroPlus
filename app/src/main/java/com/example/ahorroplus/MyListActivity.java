@@ -57,7 +57,7 @@ public class MyListActivity extends AppCompatActivity {
 
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, responseList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productos);
         AutoCompleteTextView editText = findViewById(R.id.Buscador);
         editText.setAdapter(adapter);
 
