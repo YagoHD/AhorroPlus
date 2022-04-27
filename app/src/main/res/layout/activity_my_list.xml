@@ -97,5 +97,13 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toEndOf="@+id/imageButonAtras" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="411dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButonAtras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Buscador" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
