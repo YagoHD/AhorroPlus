@@ -6,6 +6,7 @@ public class ShoppingItem {
     private String precioEroski;
     private String precioMercadona;
     private String precioCarrefour;
+    private int precio;
 
         public  ShoppingItem(String nombre, String precioEroski, String precioMercadona, String precioCarrefour) {
             this.nombre = nombre;
@@ -26,4 +27,7 @@ public class ShoppingItem {
         public  String getPrecioCarrefour(){
             return precioCarrefour;
         }
+        public  int getPrecio(){
+        return 0;
+    }
 }

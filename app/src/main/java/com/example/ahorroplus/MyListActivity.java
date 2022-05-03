@@ -2,6 +2,7 @@ package com.example.ahorroplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +49,16 @@ public class MyListActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+        //RECYCLERVIEW
+       // RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+       // List<ShoppingItem> data = new ArrayList<>();
+        //data.add(new ShoppingItem("Pan Bimbo", "3","4","1"));
+        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(data, this);
+        //recyclerView.setAdapter(adapter);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         /////////////////////////////////////////////
 
 
@@ -84,7 +95,7 @@ public class MyListActivity extends AppCompatActivity {
                 //TOAST QUE INDICA AÑADIDO TRAS CLICAR EN UN PRODUCTO/
                     //Toast.makeText(MyListActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
                 String selected;
-                selected = AdapterView.getAdapter().getItem(i).toString();
+                selected = parent.getAdapter().getItem(i).toString();
                 Toast.makeText(MyListActivity.this, selected, Toast.LENGTH_SHORT).show();
                 //////////////////////////////////////////////////////
 
@@ -97,16 +108,19 @@ public class MyListActivity extends AppCompatActivity {
                     String valorLeido;
                     SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
                     HashSet<String> hashSet = new HashSet<String>();
-                    SharedPreferences.Editor editor = prefs.edit();
-                    valorLeido = prefs.getString("Dato guardado", productos.get(i));
+                    hashSet.addAll(prefs.getStringSet("miLista", null));
+
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
-                    hashSet.add(valorLeido);
+
+                    hashSet.add(selected);
+                    SharedPreferences.Editor editor = prefs.edit();
                 //////////////////////////////////////////////////////
 
                 //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
-                    editor.putStringSet("miLista",hashSet).commit();
+                    editor.putStringSet("miLista",hashSet);
+                    editor.commit();
                     editor.apply();
                 //////////////////////////////////////////////////////
 

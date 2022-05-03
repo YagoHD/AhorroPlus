@@ -8,25 +8,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-public class ViewHolder extends RecyclerViewAdapter{
-    private final ImageView logoSupermercado;
-    private final TextView nombreProducto;
-    private final TextView precio;
-    private final CheckBox checkBoxComprado;
+//public class ViewHolder extends RecyclerViewAdapter{
+  //  private final ImageView logoSupermercado;
+   // private final TextView nombreProducto;
+  //  private final TextView precio;
+  //  private final CheckBox checkBoxComprado;
 
-    public ViewHolder(@NonNull View itemView){
-        super(itemView);
-        nombreProducto = (TextView) itemView.findViewById(R.id.nombre_Producto);
-        logoSupermercado = (ImageView) itemView.findViewById(R.id.logo_Supermercado);
-        precio = (TextView) itemView.findViewById(R.id.precio);
-        checkBoxComprado = (CheckBox) itemView.findViewById(R.id.chek_Comprado);
+    //public ViewHolder(@NonNull View itemView){
+        //super(itemView);
+        //nombreProducto = (TextView) itemView.findViewById(R.id.nombre_Producto);
+      //  logoSupermercado = (ImageView) itemView.findViewById(R.id.logo_Supermercado);
+      //  precio = (TextView) itemView.findViewById(R.id.precio);
+     //   checkBoxComprado = (CheckBox) itemView.findViewById(R.id.chek_Comprado);
 
-    }
+   // }
 
-    public void showData(ShoppingItem item, Activity activity){
-        nombreProducto.setText(item.getNombre());
+  //  public void showData(ShoppingItem item, Activity activity){
+     //   nombreProducto.setText(item.getNombre());
+        //logoSupermercado.setImageIcon(item.get);   QUE LOGO??!!
+        //precio.setText(item.);             QUE PRECIO!!??
+        //checkBoxComprado.setChecked();     COMO SE HACE ESTO??
+   // }
 
-
-    }
-
-}
+//}
