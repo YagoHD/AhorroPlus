@@ -51,12 +51,12 @@ public class MyListActivity extends AppCompatActivity {
         });
 
         //RECYCLERVIEW
-       // RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-       // List<ShoppingItem> data = new ArrayList<>();
-        //data.add(new ShoppingItem("Pan Bimbo", "3","4","1"));
-        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(data, this);
-        //recyclerView.setAdapter(adapter);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+        List<ShoppingItem> data = new ArrayList<>();
+        data.add(new ShoppingItem("Pan Bimbo", "3","4","1"));
+        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
+        recyclerView.setAdapter(adaptador);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         /////////////////////////////////////////////
@@ -88,42 +88,37 @@ public class MyListActivity extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                /////////////////////////////AQUI TENGO EL PROBLEMA DE QUE NO ME GUARDA EL ITEM EN EL QUE CLICO, ME GUARDA CASI SIEMPRE PAN Y NO SABEMOS POR QUE/////////////////////////////
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
                 //TOAST QUE INDICA AÑADIDO TRAS CLICAR EN UN PRODUCTO/
-                    //Toast.makeText(MyListActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
                 String selected;
                 selected = parent.getAdapter().getItem(i).toString();
                 Toast.makeText(MyListActivity.this, selected, Toast.LENGTH_SHORT).show();
                 //////////////////////////////////////////////////////
+
 
                 //CERRAMOS EL TACLADO AL CLICAR UN PRODUCTO///////////
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 //////////////////////////////////////////////////////
 
+
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
                     String valorLeido;
                     SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
                     HashSet<String> hashSet = new HashSet<String>();
                     hashSet.addAll(prefs.getStringSet("miLista", null));
-
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
-
                     hashSet.add(selected);
                     SharedPreferences.Editor editor = prefs.edit();
                 //////////////////////////////////////////////////////
+
 
                 //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
                     editor.putStringSet("miLista",hashSet);
                     editor.commit();
                     editor.apply();
                 //////////////////////////////////////////////////////
-
             }
         });
 

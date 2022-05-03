@@ -10,27 +10,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-//public class RecyclerViewAdapter  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
- //   private List<ShoppingItem> allTheData;
-  //  private Activity activity;
+    private List<ShoppingItem> allTheData;
+    private Activity activity;
 
- //   public RecyclerViewAdapter(List<ShoppingItem> dataSet, Activity activity) {
- //       this.allTheData = dataSet;
-  //      this.activity = activity;
-  //  }
+    public RecyclerViewAdapter(List<ShoppingItem> dataSet, Activity activity) {
+        this.allTheData = dataSet;
+        this.activity = activity;
+    }
 
- //   public ViewHolder onCrViewHolder(@NonNull ViewGroup parent, int viewType){
- //       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder, parent, false);
- //       return new ViewHolder(view);
- //   }
+    public ViewHolder onCrViewHolder(@NonNull ViewGroup parent, int viewType){
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder, parent, false);
+        return new ViewHolder(view);
+    }
 
-  //  public void onBindViewHolder(ViewHolder holder, int position){
-  //      ShoppingItem dataInPositionToBeRendered = allTheData.get(position);
-   //     holder.showData(dataInPositionToBeRendered, activity);
- //   }
 
-  //  public int getItemCount(){
-  //      return allTheData.size();
-   // }
-//}
+    public void onBindViewHolder( ViewHolder holder, int position){
+        ShoppingItem dataInPositionToBeRendered = allTheData.get(position);
+        holder.showData(dataInPositionToBeRendered, activity);
+    }
+
+    public int getItemCount(){
+        return allTheData.size();
+    }
+}
