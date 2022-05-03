@@ -39,6 +39,7 @@ public class MyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
 
+        //BOTON QUE NOS MANDA  ALA PANTALLA ANTERIOR
         ImageButton imageButonAtras = findViewById(R.id.imageButonAtras);
         imageButonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +48,7 @@ public class MyListActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-
+        /////////////////////////////////////////////
 
 
         try {
@@ -61,7 +62,7 @@ public class MyListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        List<String> responseList = new ArrayList<String>();
+        //List<String> responseList = new ArrayList<String>();
 
 
 
@@ -73,35 +74,40 @@ public class MyListActivity extends AppCompatActivity {
 
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////AQUI TENGO EL PROBLEMA DE QUE NO ME GUARDA EL ITEM EN EL QUE CLICO, ME GUARDA CASI SIEMPRE PAN Y NO SABEMOS POR QUE/////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 //TOAST QUE INDICA AÑADIDO TRAS CLICAR EN UN PRODUCTO/
-                Toast.makeText(MyListActivity.this, "Anhadido", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MyListActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+                String selected;
+                selected = AdapterView.getAdapter().getItem(i).toString();
+                Toast.makeText(MyListActivity.this, selected, Toast.LENGTH_SHORT).show();
                 //////////////////////////////////////////////////////
 
                 //CERRAMOS EL TACLADO AL CLICAR UN PRODUCTO///////////
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 //////////////////////////////////////////////////////
 
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
-                String valorLeido;
-                SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
-                HashSet<String> hashSet = new HashSet<String>();
-                SharedPreferences.Editor editor = prefs.edit();
-                valorLeido = prefs.getString("Dato guardado", "PRODUCRO");
+                    String valorLeido;
+                    SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+                    HashSet<String> hashSet = new HashSet<String>();
+                    SharedPreferences.Editor editor = prefs.edit();
+                    valorLeido = prefs.getString("Dato guardado", productos.get(i));
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
-                hashSet.add(valorLeido);
+                    hashSet.add(valorLeido);
                 //////////////////////////////////////////////////////
 
                 //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
-                editor.putStringSet("miLista",hashSet).commit();
-                editor.apply();
+                    editor.putStringSet("miLista",hashSet).commit();
+                    editor.apply();
                 //////////////////////////////////////////////////////
 
             }
