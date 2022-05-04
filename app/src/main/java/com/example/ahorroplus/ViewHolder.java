@@ -26,9 +26,10 @@ public class ViewHolder extends RecyclerView.ViewHolder{
 
     public void showData(ShoppingItem item, Activity activity){
         nombreProducto.setText(item.getNombre());
-        //logoSupermercado.setImageIcon(item.get);   QUE LOGO??!!
-        //precio.setText(item.);             QUE PRECIO!!??
-       // checkBoxComprado.setChecked();     COMO SE HACE ESTO??
+        precio.setText(item.MasBarato(item.getPrecioEroski(), item.getPrecioMercadona(), item.getPrecioCarrefour()));
+
+
     }
+
 
 }

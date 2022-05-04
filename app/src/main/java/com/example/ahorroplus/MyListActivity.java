@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,11 +53,8 @@ public class MyListActivity extends AppCompatActivity {
 
         //RECYCLERVIEW
         RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-        List<ShoppingItem> data = new ArrayList<>();
-        data.add(new ShoppingItem("Pan Bimbo", "3","4","1"));
-        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
-        recyclerView.setAdapter(adaptador);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Activity activity = this;
+
 
 
         /////////////////////////////////////////////

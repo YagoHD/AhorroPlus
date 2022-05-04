@@ -20,12 +20,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.activity = activity;
     }
 
-    public ViewHolder onCrViewHolder(@NonNull ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder, parent, false);
         return new ViewHolder(view);
     }
-
-
+    
     public void onBindViewHolder( ViewHolder holder, int position){
         ShoppingItem dataInPositionToBeRendered = allTheData.get(position);
         holder.showData(dataInPositionToBeRendered, activity);
