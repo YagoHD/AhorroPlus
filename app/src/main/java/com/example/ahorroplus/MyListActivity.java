@@ -89,13 +89,14 @@ public class MyListActivity extends AppCompatActivity {
                 //TOAST QUE INDICA AÑADIDO TRAS CLICAR EN UN PRODUCTO/
                 String selected;
                 selected = parent.getAdapter().getItem(i).toString();
-                Toast.makeText(MyListActivity.this, selected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyListActivity.this, "Añadido "+ selected, Toast.LENGTH_SHORT).show();
                 //////////////////////////////////////////////////////
 
-
-                //CERRAMOS EL TACLADO AL CLICAR UN PRODUCTO///////////
+                editText.setText("");
+                //CERRAMOS EL TACLADO AL CLICAR UN PRODUCTO Y LIMPIAMOS EL TEXTO ESCRITO///////////
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    editText.setText("");
                 //////////////////////////////////////////////////////
 
 

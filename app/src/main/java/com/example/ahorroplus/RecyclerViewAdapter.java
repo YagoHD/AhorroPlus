@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder>  {
 
     private List<ShoppingItem> allTheData;
     private Activity activity;
