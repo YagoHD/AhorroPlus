@@ -51,13 +51,7 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
 
-        //RECYCLERVIEW
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-        Activity activity = this;
 
-
-
-        /////////////////////////////////////////////
 
 
         try {
@@ -70,8 +64,6 @@ public class MyListActivity extends AppCompatActivity {
         }catch (JSONException e){
             e.printStackTrace();
         }
-
-        //List<String> responseList = new ArrayList<String>();
 
 
 
@@ -120,6 +112,18 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
             }
         });
+
+        //RECYCLERVIEW
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+        Activity activity = this;
+        List<ShoppingItem> data = new ArrayList<>();
+        data.add(new ShoppingItem("Carne","1","3","2"));
+        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
+        recyclerView.setAdapter(adaptador);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        /////////////////////////////////////////////
 
     }
 

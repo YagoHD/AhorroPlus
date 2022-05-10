@@ -37,11 +37,11 @@ public class ShoppingItem {
             int precioMerc = Integer.parseInt(precioMercadona);
             int precioCarr = Integer.parseInt(precioCarrefour);
 
-            if(precioCarr>=precioEros && precioCarr>=precioMerc){
+            if(precioCarr<=precioEros && precioCarr<=precioMerc){
                 return precioCarrefour;
-            }else if (precioEros>=precioCarr && precioEros>=precioMerc){
+            }else if (precioEros<=precioCarr && precioEros<=precioMerc){
                 return precioEroski;
-            }else if (precioMerc>=precioEros && precioMerc>=precioCarr){
+            }else if (precioMerc<=precioEros && precioMerc<=precioCarr){
                 return precioMercadona;
             }else return "ERROR";
 
