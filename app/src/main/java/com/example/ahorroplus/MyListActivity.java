@@ -71,7 +71,14 @@ public class MyListActivity extends AppCompatActivity {
         AutoCompleteTextView editText = findViewById(R.id.Buscador);
         editText.setAdapter(adapter);
 
-
+        //RECYCLERVIEW
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+        Activity activity = this;
+        List<ShoppingItem> data = new ArrayList<>();
+        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
+        recyclerView.setAdapter(adaptador);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        /////////////////////////////////////////////
 
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,25 +117,18 @@ public class MyListActivity extends AppCompatActivity {
                     editor.commit();
                     editor.apply();
                 //////////////////////////////////////////////////////
+
+                //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
+                
+
+
+
+
+
+                //////////////////////////////////////////////////////
             }
         });
-
-        //RECYCLERVIEW
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-        Activity activity = this;
-        List<ShoppingItem> data = new ArrayList<>();
-        data.add(new ShoppingItem("Carne","1","3","2"));
-        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
-        recyclerView.setAdapter(adaptador);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        /////////////////////////////////////////////
-
     }
-
-
-
 
     //CARGAR JSON LOCAL DESDE ASSET
     public String LoadJsonFromAsset(){

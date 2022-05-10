@@ -19,9 +19,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     private final CheckBox checkBoxComprado;
 
 
-    public void setLogoSupermercado(ImageView logoSupermercado) {
-        this.logoSupermercado = logoSupermercado;
-    }
+
 
     public ViewHolder(@NonNull View itemView){
         super(itemView);
@@ -46,20 +44,20 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         int precioMercadona = Integer.parseInt(precioMerca);
         int precioEroski = Integer.parseInt(precioEros);
 
-        ImageView iconoEroski;
-        iconoEroski.setImageIcon(R.drawable.eroski);
-        ImageView iconoMercadona;
-        iconoMercadona.setImageIcon(R.drawable.mercadona);
-        ImageView iconoCarrefour;
-        iconoCarrefour.setImageIcon(R.drawable.carrefour);
+        ImageView iconoEroski = null;
+        ImageView iconoMercadona = null;
+        ImageView iconoCarrefour = null;
+        iconoEroski.setImageResource(R.drawable.eroski);
+        iconoMercadona.setImageResource(R.drawable.mercadona);
+        iconoCarrefour.setImageResource(R.drawable.carrefour);
 
 
         if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona) {
-            logoSupermercado = setLogoSupermercado(iconoCarrefour);
+            logoSupermercado = iconoCarrefour;
         } else if (precioEroski <= precioCarrefour && precioEroski <= precioMercadona) {
-            logoSupermercado = setLogoSupermercado(iconoEroski);
+            logoSupermercado = iconoEroski;
         } else if (precioMercadona <= precioEroski && precioMercadona <= precioCarrefour) {
-            logoSupermercado = setLogoSupermercado(iconoMercadona);
+            logoSupermercado = iconoMercadona;
         }
 
 
