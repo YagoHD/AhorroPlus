@@ -26,7 +26,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -72,12 +74,17 @@ public class MyListActivity extends AppCompatActivity {
         editText.setAdapter(adapter);
 
         //RECYCLERVIEW
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-        Activity activity = this;
-        List<ShoppingItem> data = new ArrayList<>();
-        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
-        recyclerView.setAdapter(adaptador);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    //    RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+    //    List<ShoppingItem> data = new ArrayList<>();
+
+
+
+
+
+
+    //    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
+    //    recyclerView.setAdapter(adaptador);
+    //    recyclerView.setLayoutManager(new LinearLayoutManager(this));
         /////////////////////////////////////////////
 
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,10 +107,10 @@ public class MyListActivity extends AppCompatActivity {
 
 
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
-                    String valorLeido;
-                    SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
-                    HashSet<String> hashSet = new HashSet<String>();
-                    hashSet.addAll(prefs.getStringSet("miLista", null));
+                   String valorLeido;
+                   SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+                   HashSet<String> hashSet = new HashSet<String>();
+                   hashSet.addAll(prefs.getStringSet("miLista", null));
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
@@ -119,9 +126,6 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
                 //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
-                
-
-
 
 
 
@@ -129,6 +133,12 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
 
     //CARGAR JSON LOCAL DESDE ASSET
     public String LoadJsonFromAsset(){

@@ -47,9 +47,9 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView iconoEroski = null;
         ImageView iconoMercadona = null;
         ImageView iconoCarrefour = null;
-        iconoEroski.setImageResource(R.drawable.eroski);
-        iconoMercadona.setImageResource(R.drawable.mercadona);
-        iconoCarrefour.setImageResource(R.drawable.carrefour);
+        //iconoEroski.setImageResource(R.drawable.eroski);
+        //iconoMercadona.setImageResource(R.drawable.mercadona);
+        //iconoCarrefour.setImageResource(R.drawable.carrefour);
 
 
         if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona) {
