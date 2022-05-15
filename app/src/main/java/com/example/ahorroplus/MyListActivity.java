@@ -110,7 +110,7 @@ public class MyListActivity extends AppCompatActivity {
                    String valorLeido;
                    SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
                    HashSet<String> hashSet = new HashSet<String>();
-                   hashSet.addAll(prefs.getStringSet("miLista", null));
+                   hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
@@ -126,7 +126,10 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
                 //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
-
+                Iterator it = hashSet.iterator();
+                while(it.hasNext()){
+                    Toast.makeText(MyListActivity.this, it.next().toString(), Toast.LENGTH_SHORT).show();
+                }
 
 
                 //////////////////////////////////////////////////////
