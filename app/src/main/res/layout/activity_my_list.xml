@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondoazul"
+    android:background="@drawable/fondolimpio"
     tools:context=".MyListActivity">
 
     <TextView
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerTipoCompra"
         android:layout_width="155dp"
 
         android:layout_height="35dp"

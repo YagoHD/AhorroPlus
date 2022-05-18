@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,7 +37,6 @@ public class MyListActivity extends AppCompatActivity {
 
     AutoCompleteTextView Buscador;
     ArrayList<String> productos =new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +74,7 @@ public class MyListActivity extends AppCompatActivity {
         editText.setAdapter(adapter);
 
         //RECYCLERVIEW
-    //    RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
-    //    List<ShoppingItem> data = new ArrayList<>();
+
 
 
 
@@ -86,7 +85,17 @@ public class MyListActivity extends AppCompatActivity {
     //    recyclerView.setAdapter(adaptador);
     //    recyclerView.setLayoutManager(new LinearLayoutManager(this));
         /////////////////////////////////////////////
+        //SPINNER CON TIPO DE COMPRA
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
+        String[] datos = new String[] {"UNICO", "VARIOS"};
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, datos);
+        spinner.setAdapter(adapterSpinner);
 
+
+
+
+        /////////////////////////////////////////////
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -115,6 +124,30 @@ public class MyListActivity extends AppCompatActivity {
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
                     hashSet.add(selected);
+                    Iterator it = hashSet.iterator();
+                    while(it.hasNext()){
+                        try {
+                            JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
+
+                            for( i=0;i<arraydedatos.length();i++){
+                                JSONObject userData = arraydedatos.getJSONObject(i);
+
+
+                                for (int x=0;x<userData.length();x++){
+                                    String productos2;
+                                    productos2=(userData.getString("nombre"));
+                                    if (it.next().toString().equals(productos2)){
+                                        hashSet.add(userData.getString("precioCarrefour"));
+                                        hashSet.add(userData.getString("precioMercadona"));
+                                        hashSet.add(userData.getString("precioEroski"));
+                                    }
+                                }
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+
                     SharedPreferences.Editor editor = prefs.edit();
                 //////////////////////////////////////////////////////
 
@@ -126,21 +159,12 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
                 //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
-                Iterator it = hashSet.iterator();
-                while(it.hasNext()){
-                    Toast.makeText(MyListActivity.this, it.next().toString(), Toast.LENGTH_SHORT).show();
-                }
-
 
                 //////////////////////////////////////////////////////
+
             }
         });
     }
-
-
-
-
-
 
 
     //CARGAR JSON LOCAL DESDE ASSET
