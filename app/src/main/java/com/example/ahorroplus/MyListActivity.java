@@ -52,7 +52,7 @@ public class MyListActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-
+        //BOTON QUE BORRA EL HASHSHET
 
 
 
@@ -78,12 +78,9 @@ public class MyListActivity extends AppCompatActivity {
 
 
 
+        CargarDatos(null);
 
 
-
-    //    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(data, this);
-    //    recyclerView.setAdapter(adaptador);
-    //    recyclerView.setLayoutManager(new LinearLayoutManager(this));
         /////////////////////////////////////////////
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
@@ -92,6 +89,12 @@ public class MyListActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, datos);
         spinner.setAdapter(adapterSpinner);
 
+        String seleccion = spinner.getSelectedItem().toString();
+        if(seleccion.equals("VARIOS")){
+
+        }else if(seleccion.equals("UNICO")){
+
+        }
 
 
 
@@ -123,39 +126,14 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL NOMBRE AL HASHSET
-                    hashSet.add(selected);
-                    Iterator it = hashSet.iterator();
-                    while(it.hasNext()){
-                        try {
-                            JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
-
-                            for( i=0;i<arraydedatos.length();i++){
-                                JSONObject userData = arraydedatos.getJSONObject(i);
-
-
-                                for (int x=0;x<userData.length();x++){
-                                    String productos2;
-                                    productos2=(userData.getString("nombre"));
-                                    if (it.next().toString().equals(productos2)){
-                                        hashSet.add(userData.getString("precioCarrefour"));
-                                        hashSet.add(userData.getString("precioMercadona"));
-                                        hashSet.add(userData.getString("precioEroski"));
-                                    }
-                                }
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-
-                    SharedPreferences.Editor editor = prefs.edit();
+                   CargarDatos(selected);
                 //////////////////////////////////////////////////////
 
 
                 //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
-                    editor.putStringSet("miLista",hashSet);
-                    editor.commit();
-                    editor.apply();
+                  //  editor.putStringSet("miLista",hashSet);
+                  //  editor.commit();
+                  //  editor.apply();
                 //////////////////////////////////////////////////////
 
                 //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
@@ -165,7 +143,58 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
     }
+//FUNCION CARGAR DATOS
 
+
+    public void CargarDatos(String selected){
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+        Activity activity = this;
+        String valorLeido;
+        SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+        HashSet<String> hashSet = new HashSet<String>();
+        hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
+        //////////////////////////////////////////////////////
+
+        //AÑADIMOS EL NOMBRE AL HASHSET
+        if(selected!=null) {
+            hashSet.add(selected);
+        }
+
+        Iterator it = hashSet.iterator();
+        List<ShoppingItem> listaDeItems = new ArrayList<ShoppingItem>();
+        try {
+            JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
+            while(it.hasNext()){
+                String variablGuardadaHashSet = it.next().toString();
+
+
+                for( int x=0;x<arraydedatos.length();x++){
+                    JSONObject userData = arraydedatos.getJSONObject(x);
+                    String productos2;
+                    productos2=(userData.getString("nombre"));
+
+                    if (variablGuardadaHashSet.equals(productos2)){
+
+                        ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioMercadona"),userData.getString("precioCarrefour"));
+                        listaDeItems.add(item);
+                        break;
+                    }
+
+                    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                    recyclerView.setAdapter(adaptador);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                }
+            }
+        }catch (JSONException e){ e.printStackTrace();}
+
+        SharedPreferences.Editor editor = prefs.edit();
+
+
+        //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
+        editor.putStringSet("miLista",hashSet);
+        editor.commit();
+        editor.apply();
+    }
 
     //CARGAR JSON LOCAL DESDE ASSET
     public String LoadJsonFromAsset(){

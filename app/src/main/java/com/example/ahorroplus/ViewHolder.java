@@ -40,9 +40,9 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         String precioMerca = item.getPrecioMercadona();
         String precioEros = item.getPrecioEroski();
 
-        int precioCarrefour = Integer.parseInt(precioCarr);
-        int precioMercadona = Integer.parseInt(precioMerca);
-        int precioEroski = Integer.parseInt(precioEros);
+        double precioCarrefour = Double.parseDouble(precioCarr);
+        double precioMercadona = Double.parseDouble(precioMerca);
+        double precioEroski = Double.parseDouble(precioEros);
 
         ImageView iconoEroski = null;
         ImageView iconoMercadona = null;

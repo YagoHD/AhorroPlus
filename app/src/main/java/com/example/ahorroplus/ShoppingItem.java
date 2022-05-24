@@ -33,9 +33,9 @@ public class ShoppingItem {
             this.precioCarrefour=precioCarrefour;
             this.precioEroski=precioEroski;
 
-            int precioEros = Integer.parseInt(precioEroski);
-            int precioMerc = Integer.parseInt(precioMercadona);
-            int precioCarr = Integer.parseInt(precioCarrefour);
+            double precioEros = Double.parseDouble(precioEroski);
+            double precioMerc = Double.parseDouble(precioMercadona);
+            double precioCarr = Double.parseDouble(precioCarrefour);
 
             if(precioCarr<=precioEros && precioCarr<=precioMerc){
                 return precioCarrefour;
