@@ -21,9 +21,6 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     private final TextView precio;
     private final CheckBox checkBoxComprado;
 
-
-
-
     public ViewHolder(@NonNull View itemView){
         super(itemView);
         nombreProducto = (TextView) itemView.findViewById(R.id.nombre_Producto);
@@ -35,7 +32,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 if(checkBoxComprado.isChecked()) {
-                    nombreProducto.setTextColor(Color.parseColor("#9b9b9b"));
+                    nombreProducto.setTextColor(Color.parseColor("#FFFFFF"));
                     nombreProducto.setPaintFlags(nombreProducto.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
                     nombreProducto.setTextColor(Color.parseColor("#6b736e"));
@@ -59,25 +56,14 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         double precioMercadona = Double.parseDouble(precioMerca);
         double precioEroski = Double.parseDouble(precioEros);
 
-        ImageView iconoEroski = null;
-        ImageView iconoMercadona = null;
-        ImageView iconoCarrefour = null;
-        //iconoEroski.setImageResource(R.drawable.eroski);
-        //iconoMercadona.setImageResource(R.drawable.mercadona);
-        //iconoCarrefour.setImageResource(R.drawable.carrefour);
 
 
         if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona) {
-            logoSupermercado = iconoCarrefour;
+            logoSupermercado.setBackgroundResource(R.drawable.carrefour);
         } else if (precioEroski <= precioCarrefour && precioEroski <= precioMercadona) {
-            logoSupermercado = iconoEroski;
+            logoSupermercado.setBackgroundResource(R.drawable.eroski);
         } else if (precioMercadona <= precioEroski && precioMercadona <= precioCarrefour) {
-            logoSupermercado = iconoMercadona;
+            logoSupermercado.setBackgroundResource(R.drawable.mercadona);
         }
-
-
-
     }
-
-
 }

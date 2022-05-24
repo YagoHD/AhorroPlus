@@ -53,6 +53,7 @@ public class MyListActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
         //BOTON QUE BORRA EL HASHSHET
         ImageButton botonBorrar = findViewById(R.id.BorrarLista);
         botonBorrar.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +88,6 @@ public class MyListActivity extends AppCompatActivity {
         AutoCompleteTextView editText = findViewById(R.id.Buscador);
         editText.setAdapter(adapter);
 
-        //RECYCLERVIEW
-        CargarDatos(null);
-        /////////////////////////////////////////////
 
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
@@ -99,10 +97,12 @@ public class MyListActivity extends AppCompatActivity {
         spinner.setAdapter(adapterSpinner);
         spinner.setSelection(1);
         String seleccion = spinner.getSelectedItem().toString();
+        //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
         if(seleccion.equals("VARIOS")){
             CargarDatos(null);
         }else if(seleccion.equals("UNICO")){
-
+            //Toast.makeText(MyListActivity.this, "En desarrollo.... "+ seleccion, Toast.LENGTH_SHORT).show();
+            CargaUnico(null);
         }
         /////////////////////////////////////////////
 
@@ -119,12 +119,11 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
                 editText.setText("");
-                //CERRAMOS EL TACLADO AL CLICAR UN PRODUCTO Y LIMPIAMOS EL TEXTO ESCRITO///////////
+                //CERRAMOS EL TECLADO AL CLICAR UN PRODUCTO Y LIMPIAMOS EL TEXTO ESCRITO///////////
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     editText.setText("");
                 //////////////////////////////////////////////////////
-
 
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
                    String valorLeido;
@@ -133,60 +132,45 @@ public class MyListActivity extends AppCompatActivity {
                    hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
                 //////////////////////////////////////////////////////
 
-                //AÑADIMOS EL NOMBRE AL HASHSET
-                   CargarDatos(selected);
+                //AÑADIMOS EL PRODUCTO EN EL QUE CLICAMOS
+                if(seleccion.equals("VARIOS")){
+                    CargarDatos(selected);
+                }else if(seleccion.equals("UNICO")){
+                    CargaUnico(selected);
+                }
                 //////////////////////////////////////////////////////
-
-
             }
         });
         /////////////////////////////////////////////
 
-        EditText precioFinal = findViewById(R.id.precio);
-        //precioFinal.setText();
+        //LAVEL PRECIO
 
 
-
-
+        /////////////////////////////////////////////
     }
 
-    public void CargaUnicoSuper(String selected){
-        int precioTotalCarrefour = 0;
-        int precioTotalMercadona = 0;
-        int precioTotalEroski = 0;
-
-        SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
-        HashSet<String> hashSet = new HashSet<String>();
-        hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
-    }
-
-
-
-
-
-
-
-    //FUNCION CARGAR DATOS
-    public void CargarDatos(String selected){
+    //FUNCION CARGAR UN UNICO SUPERMERCADO
+    public void CargaUnico(String selected){
+        double precioTotalCarrefour = 0;
+        double precioTotalMercadona = 0;
+        double precioTotalEroski = 0;
         RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
         Activity activity = this;
         SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
         HashSet<String> hashSet = new HashSet<String>();
         hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
-        //////////////////////////////////////////////////////
 
         //AÑADIMOS EL NOMBRE AL HASHSET
         if(selected!=null) {
             hashSet.add(selected);
         }
-
         Iterator it = hashSet.iterator();
         List<ShoppingItem> listaDeItems = new ArrayList<ShoppingItem>();
+
         try {
             JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
             while(it.hasNext()){
                 String variablGuardadaHashSet = it.next().toString();
-
 
                 for( int x=0;x<arraydedatos.length();x++){
                     JSONObject userData = arraydedatos.getJSONObject(x);
@@ -194,9 +178,14 @@ public class MyListActivity extends AppCompatActivity {
                     productos2=(userData.getString("nombre"));
 
                     if (variablGuardadaHashSet.equals(productos2)){
-
                         ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioMercadona"),userData.getString("precioCarrefour"));
                         listaDeItems.add(item);
+
+
+                        double precioCarrefour = Double.parseDouble(userData.getString("precioCarrefour"));
+                        precioTotalCarrefour = precioTotalCarrefour + precioCarrefour;
+                        precioTotalEroski = precioTotalEroski + Double.parseDouble(userData.getString("precioEroski"));
+                        precioTotalMercadona = precioTotalMercadona + Double.parseDouble(userData.getString("precioMercadona"));
                         break;
                     }
 
@@ -206,14 +195,93 @@ public class MyListActivity extends AppCompatActivity {
                 }
             }
         }catch (JSONException e){ e.printStackTrace();}
-
         SharedPreferences.Editor editor = prefs.edit();
-
 
         //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
         editor.putStringSet("miLista",hashSet);
         editor.commit();
         editor.apply();
+
+        String precioTotalCarrefourstring = Double.toString(precioTotalCarrefour);
+        String precioTotalEroskistring = Double.toString(precioTotalEroski);
+        String precioTotalMercadonastring = Double.toString(precioTotalMercadona);
+        if(precioTotalCarrefour<=precioTotalEroski && precioTotalCarrefour<=precioTotalMercadona){
+            EditText precioFinal = findViewById(R.id.precio);
+            precioFinal.setText(precioTotalCarrefourstring);
+        }else if (precioTotalEroski<=precioTotalCarrefour && precioTotalEroski<=precioTotalMercadona){
+            EditText precioFinal = findViewById(R.id.precio);
+            precioFinal.setText(precioTotalEroskistring);
+        }else if (precioTotalMercadona<=precioTotalEroski && precioTotalMercadona<=precioTotalCarrefour){
+            EditText precioFinal = findViewById(R.id.precio);
+            precioFinal.setText(precioTotalMercadonastring);
+        }
+    }
+
+
+    /////////////////////////////////////////////
+
+    //FUNCION CARGAR DATOS PARA VARIOS LOCALES
+    public void CargarDatos(String selected){
+        double precioTotal=0;
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
+        Activity activity = this;
+        SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+        HashSet<String> hashSet = new HashSet<String>();
+        hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
+
+        //AÑADIMOS EL NOMBRE AL HASHSET
+        if(selected!=null) {
+            hashSet.add(selected);
+        }
+        Iterator it = hashSet.iterator();
+        List<ShoppingItem> listaDeItems = new ArrayList<ShoppingItem>();
+
+        try {
+            JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
+            while(it.hasNext()){
+                String variablGuardadaHashSet = it.next().toString();
+
+                for( int x=0;x<arraydedatos.length();x++){
+                    JSONObject userData = arraydedatos.getJSONObject(x);
+                    String productos2;
+                    productos2=(userData.getString("nombre"));
+
+                    if (variablGuardadaHashSet.equals(productos2)){
+                        ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioMercadona"),userData.getString("precioCarrefour"));
+                        listaDeItems.add(item);
+                        double precioCarrefour = Double.parseDouble(userData.getString("precioCarrefour"));
+                        double precioEroski = Double.parseDouble(userData.getString("precioEroski"));
+                        double precioMercadona = Double.parseDouble(userData.getString("precioMercadona"));
+
+                        if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona){
+                            precioTotal = precioTotal + precioCarrefour;
+                        }else if (precioEroski < precioCarrefour && precioEroski < precioMercadona){
+                            precioTotal = precioTotal + precioEroski;
+                        }else if(precioMercadona < precioCarrefour && precioMercadona < precioEroski){
+                            precioTotal = precioTotal + precioMercadona;
+                        }
+                        break;
+                    }
+
+                    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                    recyclerView.setAdapter(adaptador);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                }
+            }
+        }catch (JSONException e){ e.printStackTrace();}
+        SharedPreferences.Editor editor = prefs.edit();
+
+        //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
+        editor.putStringSet("miLista",hashSet);
+        editor.commit();
+        editor.apply();
+
+        String precioFinalString = Double.toString(precioTotal);
+        EditText precioFinal = findViewById(R.id.precio);
+        precioFinalString = String.format("%3.2f" , precioTotal) ;
+        precioFinal.setText(precioFinalString);
+
     }
 
 
