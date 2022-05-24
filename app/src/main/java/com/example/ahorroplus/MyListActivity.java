@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -53,9 +54,22 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
         //BOTON QUE BORRA EL HASHSHET
+        ImageButton botonBorrar = findViewById(R.id.BorrarLista);
+        botonBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                HashSet<String> hashSet = new HashSet<>();
+                editor.putStringSet("miLista",hashSet);
+                  editor.commit();
+                  editor.apply();
+                finish(); startActivity(getIntent());
+            }
+        });
 
 
-
+        ////////////////////////////
         try {
             JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
 
@@ -74,31 +88,25 @@ public class MyListActivity extends AppCompatActivity {
         editText.setAdapter(adapter);
 
         //RECYCLERVIEW
-
-
-
-
         CargarDatos(null);
-
-
         /////////////////////////////////////////////
+
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
         String[] datos = new String[] {"UNICO", "VARIOS"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, datos);
         spinner.setAdapter(adapterSpinner);
-
+        spinner.setSelection(1);
         String seleccion = spinner.getSelectedItem().toString();
         if(seleccion.equals("VARIOS")){
-
+            CargarDatos(null);
         }else if(seleccion.equals("UNICO")){
 
         }
-
-
-
         /////////////////////////////////////////////
+
+        //ON ITEM CLICK DENTRO DEL AUTOCOMPLETE
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -130,26 +138,38 @@ public class MyListActivity extends AppCompatActivity {
                 //////////////////////////////////////////////////////
 
 
-                //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
-                  //  editor.putStringSet("miLista",hashSet);
-                  //  editor.commit();
-                  //  editor.apply();
-                //////////////////////////////////////////////////////
-
-                //CARGAR SUGERENCIA AL RECYCLERVIEW AL CLICAR EN ELLA
-
-                //////////////////////////////////////////////////////
-
             }
         });
+        /////////////////////////////////////////////
+
+        EditText precioFinal = findViewById(R.id.precio);
+        //precioFinal.setText();
+
+
+
+
     }
-//FUNCION CARGAR DATOS
+
+    public void CargaUnicoSuper(String selected){
+        int precioTotalCarrefour = 0;
+        int precioTotalMercadona = 0;
+        int precioTotalEroski = 0;
+
+        SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
+        HashSet<String> hashSet = new HashSet<String>();
+        hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
+    }
 
 
+
+
+
+
+
+    //FUNCION CARGAR DATOS
     public void CargarDatos(String selected){
         RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
         Activity activity = this;
-        String valorLeido;
         SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
         HashSet<String> hashSet = new HashSet<String>();
         hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
@@ -195,6 +215,8 @@ public class MyListActivity extends AppCompatActivity {
         editor.commit();
         editor.apply();
     }
+
+
 
     //CARGAR JSON LOCAL DESDE ASSET
     public String LoadJsonFromAsset(){

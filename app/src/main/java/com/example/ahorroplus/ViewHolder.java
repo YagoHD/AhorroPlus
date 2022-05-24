@@ -1,6 +1,8 @@
 package com.example.ahorroplus;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +31,18 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         precio = (TextView) itemView.findViewById(R.id.precio);
         checkBoxComprado = (CheckBox) itemView.findViewById(R.id.chek_Comprado);
 
+        checkBoxComprado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkBoxComprado.isChecked()) {
+                    nombreProducto.setTextColor(Color.parseColor("#9b9b9b"));
+                    nombreProducto.setPaintFlags(nombreProducto.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }else{
+                    nombreProducto.setTextColor(Color.parseColor("#6b736e"));
+                    nombreProducto.setPaintFlags(nombreProducto.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                }
+            }
+        });
     }
 
     public void showData(ShoppingItem item, Activity activity){

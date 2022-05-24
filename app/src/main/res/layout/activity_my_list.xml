@@ -50,7 +50,7 @@
         android:src="@android:drawable/ic_menu_search" />
 
     <ImageButton
-        android:id="@+id/imageButonPapelera"
+        android:id="@+id/BorrarLista"
         android:layout_width="64dp"
         android:layout_height="57dp"
         android:layout_marginBottom="16dp"
@@ -74,7 +74,7 @@
         app:srcCompat="@drawable/ic_hacia_atras" />
 
     <EditText
-        android:id="@+id/editTextNumberSigned"
+        android:id="@+id/precio"
         android:layout_width="102dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
@@ -93,13 +93,14 @@
         android:layout_height="35dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButonPapelera"
+        app:layout_constraintEnd_toStartOf="@+id/BorrarLista"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toEndOf="@+id/imageButonAtras" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLista"
         android:layout_width="359dp"
+
         android:layout_height="418dp"
         app:layout_constraintBottom_toTopOf="@+id/imageButonAtras"
         app:layout_constraintEnd_toEndOf="parent"
