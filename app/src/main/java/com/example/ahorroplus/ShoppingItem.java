@@ -28,7 +28,7 @@ public class ShoppingItem {
         }
 
 
-        public String MasBarato(String precioEroski, String precioMercadona, String precioCarrefour, int Supermercado){
+        public String MasBarato(String precioEroski, String precioMercadona, String precioCarrefour){
             this.precioMercadona=precioMercadona;
             this.precioCarrefour=precioCarrefour;
             this.precioEroski=precioEroski;

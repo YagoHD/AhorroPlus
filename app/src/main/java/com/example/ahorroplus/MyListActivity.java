@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationBarView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,14 +98,25 @@ public class MyListActivity extends AppCompatActivity {
         spinner.setAdapter(adapterSpinner);
         spinner.setSelection(1);
         String seleccion = spinner.getSelectedItem().toString();
-        //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
-        if(seleccion.equals("VARIOS")){
-            CargaUnico(null);
-            //CargarDatos(null);
-        }else if(seleccion.equals("UNICO")){
-            CargaUnico(null);
-        }
-        /////////////////////////////////////////////
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String seleccion = spinner.getSelectedItem().toString();
+                //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
+                if(seleccion.equals("VARIOS")){
+                    CargarDatos(null);
+                }else if(seleccion.equals("UNICO")){
+                    CargaUnico(null);
+                }
+                /////////////////////////////////////////////
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        //////////////////////////////////////////////////////
 
         //ON ITEM CLICK DENTRO DEL AUTOCOMPLETE
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
