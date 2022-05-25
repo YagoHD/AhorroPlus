@@ -56,8 +56,17 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         double precioMercadona = Double.parseDouble(precioMerca);
         double precioEroski = Double.parseDouble(precioEros);
 
+    if (Supermercado!=0){
+        if (Supermercado=1) {
+            logoSupermercado.setBackgroundResource(R.drawable.carrefour);
+        } else if (Supermercado=2) {
+            logoSupermercado.setBackgroundResource(R.drawable.eroski);
+        } else if (Supermercado=3) {
+            logoSupermercado.setBackgroundResource(R.drawable.mercadona);
+        }
+    }
 
-
+    do{
         if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona) {
             logoSupermercado.setBackgroundResource(R.drawable.carrefour);
         } else if (precioEroski <= precioCarrefour && precioEroski <= precioMercadona) {
@@ -65,5 +74,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         } else if (precioMercadona <= precioEroski && precioMercadona <= precioCarrefour) {
             logoSupermercado.setBackgroundResource(R.drawable.mercadona);
         }
+    }while (Supermercado = 0);
+
     }
 }

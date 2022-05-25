@@ -38,7 +38,7 @@ public class MyListActivity extends AppCompatActivity {
 
     AutoCompleteTextView Buscador;
     ArrayList<String> productos =new ArrayList<>();
-
+    public int Supermercado = 0; //0 calcula el 1 carrefour, 2 mercadona, 3 eroski
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,16 +92,15 @@ public class MyListActivity extends AppCompatActivity {
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
         String[] datos = new String[] {"UNICO", "VARIOS"};
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, datos);
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datos);
         spinner.setAdapter(adapterSpinner);
         spinner.setSelection(1);
         String seleccion = spinner.getSelectedItem().toString();
         //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
         if(seleccion.equals("VARIOS")){
-            CargarDatos(null);
+            CargaUnico(null);
+            //CargarDatos(null);
         }else if(seleccion.equals("UNICO")){
-            //Toast.makeText(MyListActivity.this, "En desarrollo.... "+ seleccion, Toast.LENGTH_SHORT).show();
             CargaUnico(null);
         }
         /////////////////////////////////////////////
@@ -134,18 +133,14 @@ public class MyListActivity extends AppCompatActivity {
 
                 //AÑADIMOS EL PRODUCTO EN EL QUE CLICAMOS
                 if(seleccion.equals("VARIOS")){
-                    CargarDatos(selected);
+                    CargaUnico(selected);
+                    //CargarDatos(selected);
                 }else if(seleccion.equals("UNICO")){
                     CargaUnico(selected);
                 }
                 //////////////////////////////////////////////////////
             }
         });
-        /////////////////////////////////////////////
-
-        //LAVEL PRECIO
-
-
         /////////////////////////////////////////////
     }
 
@@ -178,20 +173,42 @@ public class MyListActivity extends AppCompatActivity {
                     productos2=(userData.getString("nombre"));
 
                     if (variablGuardadaHashSet.equals(productos2)){
-                        ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioMercadona"),userData.getString("precioCarrefour"));
-                        listaDeItems.add(item);
-
-
                         double precioCarrefour = Double.parseDouble(userData.getString("precioCarrefour"));
                         precioTotalCarrefour = precioTotalCarrefour + precioCarrefour;
                         precioTotalEroski = precioTotalEroski + Double.parseDouble(userData.getString("precioEroski"));
                         precioTotalMercadona = precioTotalMercadona + Double.parseDouble(userData.getString("precioMercadona"));
+
+
+                        if(precioTotalCarrefour<=precioTotalEroski && precioTotalCarrefour<=precioTotalMercadona){
+                            ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioCarrefour"),userData.getString("precioCarrefour"),userData.getString("precioCarrefour"));
+                            listaDeItems.add(item);
+                            String precioTotalCarrefourstring = String.format("%3.2f" ,precioTotalCarrefour);
+                            EditText precioFinal = findViewById(R.id.precio);
+                            precioFinal.setText(precioTotalCarrefourstring);
+
+                            Supermercado = 1;
+                        }else if (precioTotalEroski<=precioTotalCarrefour && precioTotalEroski<=precioTotalMercadona){
+                            ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioEroski"),userData.getString("precioEroski"));
+                            listaDeItems.add(item);
+                            String precioTotalEroskistring = String.format("%3.2f" ,precioTotalEroski);
+                            EditText precioFinal = findViewById(R.id.precio);
+                            precioFinal.setText(precioTotalEroskistring);
+                            Supermercado = 2;
+                        }else if (precioTotalMercadona<=precioTotalEroski && precioTotalMercadona<=precioTotalCarrefour){
+                            ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioMercadona"),userData.getString("precioMercadona"),userData.getString("precioMercadona"));
+                            listaDeItems.add(item);
+                            String precioTotalMercadonastring = String.format("%3.2f" ,precioTotalMercadona);
+                            EditText precioFinal = findViewById(R.id.precio);
+                            precioFinal.setText(precioTotalMercadonastring);
+                            Supermercado = 3;
+                        }
+
+                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                        recyclerView.setAdapter(adaptador);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;
                     }
 
-                    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
-                    recyclerView.setAdapter(adaptador);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                 }
             }
         }catch (JSONException e){ e.printStackTrace();}
@@ -202,19 +219,7 @@ public class MyListActivity extends AppCompatActivity {
         editor.commit();
         editor.apply();
 
-        String precioTotalCarrefourstring = Double.toString(precioTotalCarrefour);
-        String precioTotalEroskistring = Double.toString(precioTotalEroski);
-        String precioTotalMercadonastring = Double.toString(precioTotalMercadona);
-        if(precioTotalCarrefour<=precioTotalEroski && precioTotalCarrefour<=precioTotalMercadona){
-            EditText precioFinal = findViewById(R.id.precio);
-            precioFinal.setText(precioTotalCarrefourstring);
-        }else if (precioTotalEroski<=precioTotalCarrefour && precioTotalEroski<=precioTotalMercadona){
-            EditText precioFinal = findViewById(R.id.precio);
-            precioFinal.setText(precioTotalEroskistring);
-        }else if (precioTotalMercadona<=precioTotalEroski && precioTotalMercadona<=precioTotalCarrefour){
-            EditText precioFinal = findViewById(R.id.precio);
-            precioFinal.setText(precioTotalMercadonastring);
-        }
+
     }
 
 
@@ -256,17 +261,18 @@ public class MyListActivity extends AppCompatActivity {
 
                         if (precioCarrefour <= precioEroski && precioCarrefour <= precioMercadona){
                             precioTotal = precioTotal + precioCarrefour;
-                        }else if (precioEroski < precioCarrefour && precioEroski < precioMercadona){
+                        }else if (precioEroski <= precioCarrefour && precioEroski <= precioMercadona){
                             precioTotal = precioTotal + precioEroski;
-                        }else if(precioMercadona < precioCarrefour && precioMercadona < precioEroski){
+                        }else if(precioMercadona <= precioCarrefour && precioMercadona <= precioEroski){
                             precioTotal = precioTotal + precioMercadona;
                         }
+                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                        recyclerView.setAdapter(adaptador);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;
                     }
 
-                    RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
-                    recyclerView.setAdapter(adaptador);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
                 }
             }
         }catch (JSONException e){ e.printStackTrace();}

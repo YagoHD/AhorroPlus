@@ -73,20 +73,20 @@
  },
  {
   "nombre": "Leche Desnatada sin lactosa",
-  "precioEroski": 1.10,
+  "precioEroski": 0.3,
   "precioMercadona": 1.15,
   "precioCarrefour": 1.10
  },
  {
   "nombre": "Quinoa",
   "precioEroski": 2.25,
-  "precioMercadona": 1.50,
-  "precioCarrefour": 2
+  "precioMercadona": 0.3,
+  "precioCarrefour": 1.50
  },
  {
   "nombre": "Yogurt Griego",
   "precioEroski": 1.25,
   "precioMercadona": 1.50,
-  "precioCarrefour": 0.99
+  "precioCarrefour": 0.3
  }
 ]

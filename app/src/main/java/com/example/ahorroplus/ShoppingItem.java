@@ -7,7 +7,6 @@ public class ShoppingItem {
     private String precioMercadona;
     private String precioCarrefour;
 
-
         public  ShoppingItem(String nombre, String precioEroski, String precioMercadona, String precioCarrefour) {
             this.nombre = nombre;
             this.precioEroski = precioEroski;
@@ -28,10 +27,12 @@ public class ShoppingItem {
             return precioCarrefour;
         }
 
-        public String MasBarato(String precioEroski, String precioMercadona, String precioCarrefour){
+
+        public String MasBarato(String precioEroski, String precioMercadona, String precioCarrefour, int Supermercado){
             this.precioMercadona=precioMercadona;
             this.precioCarrefour=precioCarrefour;
             this.precioEroski=precioEroski;
+
 
             double precioEros = Double.parseDouble(precioEroski);
             double precioMerc = Double.parseDouble(precioMercadona);
