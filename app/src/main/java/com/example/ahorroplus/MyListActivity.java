@@ -71,8 +71,6 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
 
-
-        ////////////////////////////
         try {
             JSONArray arraydedatos = new JSONArray(LoadJsonFromAsset());
 
@@ -84,12 +82,9 @@ public class MyListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productos);
         AutoCompleteTextView editText = findViewById(R.id.Buscador);
         editText.setAdapter(adapter);
-
 
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
@@ -103,46 +98,41 @@ public class MyListActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String seleccion = spinner.getSelectedItem().toString();
+
                 //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
                 if(seleccion.equals("VARIOS")){
                     CargarDatos(null);
                 }else if(seleccion.equals("UNICO")){
                     CargaUnico(null);
                 }
-                /////////////////////////////////////////////
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-        //////////////////////////////////////////////////////
 
         //ON ITEM CLICK DENTRO DEL AUTOCOMPLETE
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
 
                 //TOAST QUE INDICA AÑADIDO TRAS CLICAR EN UN PRODUCTO/
                 String selected;
                 selected = parent.getAdapter().getItem(i).toString();
                 Toast.makeText(MyListActivity.this, "Añadido "+ selected, Toast.LENGTH_SHORT).show();
-                //////////////////////////////////////////////////////
 
                 editText.setText("");
                 //CERRAMOS EL TECLADO AL CLICAR UN PRODUCTO Y LIMPIAMOS EL TEXTO ESCRITO///////////
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     editText.setText("");
-                //////////////////////////////////////////////////////
 
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
                    String valorLeido;
                    SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
                    HashSet<String> hashSet = new HashSet<String>();
                    hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
-                //////////////////////////////////////////////////////
 
                 //AÑADIMOS EL PRODUCTO EN EL QUE CLICAMOS
                 if(seleccion.equals("VARIOS")){
@@ -151,10 +141,8 @@ public class MyListActivity extends AppCompatActivity {
                 }else if(seleccion.equals("UNICO")){
                     CargaUnico(selected);
                 }
-                //////////////////////////////////////////////////////
             }
         });
-        /////////////////////////////////////////////
     }
 
     //FUNCION CARGAR UN UNICO SUPERMERCADO
@@ -191,15 +179,14 @@ public class MyListActivity extends AppCompatActivity {
                         precioTotalEroski = precioTotalEroski + Double.parseDouble(userData.getString("precioEroski"));
                         precioTotalMercadona = precioTotalMercadona + Double.parseDouble(userData.getString("precioMercadona"));
 
-
                         if(precioTotalCarrefour<=precioTotalEroski && precioTotalCarrefour<=precioTotalMercadona){
                             ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioCarrefour"),userData.getString("precioCarrefour"),userData.getString("precioCarrefour"));
                             listaDeItems.add(item);
                             String precioTotalCarrefourstring = String.format("%3.2f" ,precioTotalCarrefour);
                             EditText precioFinal = findViewById(R.id.precio);
                             precioFinal.setText(precioTotalCarrefourstring);
-
                             Supermercado = 1;
+
                         }else if (precioTotalEroski<=precioTotalCarrefour && precioTotalEroski<=precioTotalMercadona){
                             ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioEroski"),userData.getString("precioEroski"),userData.getString("precioEroski"));
                             listaDeItems.add(item);
@@ -207,6 +194,7 @@ public class MyListActivity extends AppCompatActivity {
                             EditText precioFinal = findViewById(R.id.precio);
                             precioFinal.setText(precioTotalEroskistring);
                             Supermercado = 2;
+
                         }else if (precioTotalMercadona<=precioTotalEroski && precioTotalMercadona<=precioTotalCarrefour){
                             ShoppingItem item = new ShoppingItem(productos2,userData.getString("precioMercadona"),userData.getString("precioMercadona"),userData.getString("precioMercadona"));
                             listaDeItems.add(item);
@@ -221,22 +209,15 @@ public class MyListActivity extends AppCompatActivity {
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;
                     }
-
                 }
             }
         }catch (JSONException e){ e.printStackTrace();}
         SharedPreferences.Editor editor = prefs.edit();
-
         //GUARDAR EL NUEVO HASHSET EN UN SHAREDPREFERENCES EDITOR
         editor.putStringSet("miLista",hashSet);
         editor.commit();
         editor.apply();
-
-
     }
-
-
-    /////////////////////////////////////////////
 
     //FUNCION CARGAR DATOS PARA VARIOS LOCALES
     public void CargarDatos(String selected){
@@ -284,10 +265,9 @@ public class MyListActivity extends AppCompatActivity {
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;
                     }
-
-
                 }
             }
+
         }catch (JSONException e){ e.printStackTrace();}
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -302,8 +282,6 @@ public class MyListActivity extends AppCompatActivity {
         precioFinal.setText(precioFinalString);
 
     }
-
-
 
     //CARGAR JSON LOCAL DESDE ASSET
     public String LoadJsonFromAsset(){
