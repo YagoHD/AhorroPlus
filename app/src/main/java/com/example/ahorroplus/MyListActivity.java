@@ -3,48 +3,43 @@ package com.example.ahorroplus;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.material.navigation.NavigationBarView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
 
 public class MyListActivity extends AppCompatActivity {
 
-    AutoCompleteTextView Buscador;
+
     ArrayList<String> productos =new ArrayList<>();
     public int Supermercado = 0; //0 calcula el 1 carrefour, 2 mercadona, 3 eroski
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
+        //TextView tipoSuper = findViewById(R.id.tipoSuper);
+        //tipoSuper.setText(String.valueOf(Supermercado));
 
         //BOTON QUE NOS MANDA  ALA PANTALLA ANTERIOR
         ImageButton imageButonAtras = findViewById(R.id.imageButonAtras);
@@ -129,15 +124,14 @@ public class MyListActivity extends AppCompatActivity {
                     editText.setText("");
 
                 //LEEMOS LAS SHARED PREFERENCES Y OBTENEMOS EL STRINGSET
-                   String valorLeido;
+                   //String valorLeido;
                    SharedPreferences prefs = getSharedPreferences("miLista", Context.MODE_PRIVATE);
                    HashSet<String> hashSet = new HashSet<String>();
                    hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
 
                 //AÑADIMOS EL PRODUCTO EN EL QUE CLICAMOS
                 if(seleccion.equals("VARIOS")){
-                    CargaUnico(selected);
-                    //CargarDatos(selected);
+                    CargarDatos(selected);
                 }else if(seleccion.equals("UNICO")){
                     CargaUnico(selected);
                 }
@@ -202,9 +196,9 @@ public class MyListActivity extends AppCompatActivity {
                             EditText precioFinal = findViewById(R.id.precio);
                             precioFinal.setText(precioTotalMercadonastring);
                             Supermercado = 3;
-                        }
 
-                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                        }
+                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity, Supermercado);
                         recyclerView.setAdapter(adaptador);
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;
@@ -222,6 +216,7 @@ public class MyListActivity extends AppCompatActivity {
     //FUNCION CARGAR DATOS PARA VARIOS LOCALES
     public void CargarDatos(String selected){
         double precioTotal=0;
+        Supermercado = 0;
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewLista);
         Activity activity = this;
@@ -260,7 +255,7 @@ public class MyListActivity extends AppCompatActivity {
                         }else if(precioMercadona <= precioCarrefour && precioMercadona <= precioEroski){
                             precioTotal = precioTotal + precioMercadona;
                         }
-                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity);
+                        RecyclerViewAdapter adaptador = new RecyclerViewAdapter(listaDeItems, activity, Supermercado);
                         recyclerView.setAdapter(adaptador);
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
                         break;

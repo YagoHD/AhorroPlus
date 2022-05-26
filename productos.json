@@ -7,7 +7,7 @@
  },
  {
   "nombre": "Pan Integral",
-  "precioEroski": 1.20,
+  "precioEroski": 1.10,
   "precioMercadona": 1.20,
   "precioCarrefour": 1.20
  },
@@ -37,14 +37,14 @@
  },
  {
   "nombre": "Huevos M",
-  "precioEroski": 0.80,
+  "precioEroski": 0.70,
   "precioMercadona": 0.80,
   "precioCarrefour": 0.89
  },
  {
   "nombre": "Huevos L",
   "precioEroski": 0.95,
-  "precioMercadona": 0.95,
+  "precioMercadona": 0.90,
   "precioCarrefour": 1
  },
  {
@@ -62,7 +62,7 @@
  {
   "nombre": "Leche Entera",
   "precioEroski": 0.85,
-  "precioMercadona": ,0.90
+  "precioMercadona": 0.78,
   "precioCarrefour": 0.85
  },
  {
