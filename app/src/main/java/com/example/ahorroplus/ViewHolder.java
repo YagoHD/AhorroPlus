@@ -36,10 +36,10 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 if(checkBoxComprado.isChecked()) {
-                    nombreProducto.setTextColor(Color.parseColor("#FFFFFF"));
+                    nombreProducto.setTextColor(Color.parseColor("#e63946"));
                     nombreProducto.setPaintFlags(nombreProducto.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }else{
-                    nombreProducto.setTextColor(Color.parseColor("#6b736e"));
+                    nombreProducto.setTextColor(Color.parseColor("#1d3557"));
                     nombreProducto.setPaintFlags(nombreProducto.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 }
             }

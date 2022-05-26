@@ -9,6 +9,7 @@
         android:id="@+id/nombre_Producto"
         android:layout_width="wrap_content"
         android:textSize="20dp"
+        android:textColor="#1d3557"
 
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,39 +20,41 @@
         android:id="@+id/precio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="136dp"
 
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/nombre_Producto"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/logo_Supermercado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+
         app:layout_constraintBottom_toBottomOf="@id/precio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/precio"
         app:layout_constraintTop_toTopOf="@+id/precio"
-        app:layout_constraintVertical_bias="0.575"
-        />
+        app:layout_constraintVertical_bias="0.575" />
 
     <CheckBox
         android:id="@+id/chek_Comprado"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="20dp"
+
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@id/logo_Supermercado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/logo_Supermercado"
-        app:layout_constraintTop_toTopOf="@+id/logo_Supermercado"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

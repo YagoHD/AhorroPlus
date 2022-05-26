@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo1"
+    android:background="@drawable/imagenimagen"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ahorro Plus"
-        android:textColor="#14213d"
+        android:textColor="#a8dadc"
         android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,8 @@
         android:id="@+id/buttonMiLista"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:backgroundTint="#457B9D"
+        android:backgroundTint="#a8dadc"
+        android:textColor="#457b9d"
         android:text="MI LISTA"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +40,8 @@
         android:id="@+id/button2"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:backgroundTint="#457B9D"
+        android:backgroundTint="#a8dadc"
+        android:textColor="#457b9d"
         android:text="LISTAS ANTIGUAS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
