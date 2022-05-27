@@ -38,8 +38,7 @@ public class MyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
-        //TextView tipoSuper = findViewById(R.id.tipoSuper);
-        //tipoSuper.setText(String.valueOf(Supermercado));
+
 
         //BOTON QUE NOS MANDA  ALA PANTALLA ANTERIOR
         ImageButton imageButonAtras = findViewById(R.id.imageButonAtras);
@@ -84,9 +83,11 @@ public class MyListActivity extends AppCompatActivity {
         //SPINNER CON TIPO DE COMPRA
         Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
         String[] datos = new String[] {"UNICO", "VARIOS"};
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datos);
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, datos);
+        adapterSpinner.setDropDownViewResource(R.layout.spinner_abajo_color);
+
         spinner.setAdapter(adapterSpinner);
-        spinner.setSelection(1);
+
         String seleccion = spinner.getSelectedItem().toString();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -97,8 +98,11 @@ public class MyListActivity extends AppCompatActivity {
                 //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
                 if(seleccion.equals("VARIOS")){
                     CargarDatos(null);
+
+
                 }else if(seleccion.equals("UNICO")){
                     CargaUnico(null);
+
                 }
             }
             @Override
@@ -130,14 +134,40 @@ public class MyListActivity extends AppCompatActivity {
                    hashSet.addAll(prefs.getStringSet("miLista", new HashSet<>()));
 
                 //AÑADIMOS EL PRODUCTO EN EL QUE CLICAMOS
-                if(seleccion.equals("VARIOS")){
-                    CargarDatos(selected);
-                }else if(seleccion.equals("UNICO")){
-                    CargaUnico(selected);
-                }
+                Spinner spinner = (Spinner) findViewById(R.id.spinnerTipoCompra);
+                String[] datos = new String[] {"UNICO", "VARIOS"};
+                //ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, datos);
+                adapterSpinner.setDropDownViewResource(R.layout.spinner_abajo_color);
+
+                spinner.setAdapter(adapterSpinner);
+
+                String seleccion = spinner.getSelectedItem().toString();
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        String seleccion = spinner.getSelectedItem().toString();
+
+                        //AÑADIMOS LOS PRODUCTOS AL INICIAR LA ACTIVIDAD Y USAMOS UN METODO O OTRO DEPENDIENDO DEL SPINNER
+                        if(seleccion.equals("VARIOS")){
+                            CargarDatos(selected);
+
+                        }else if(seleccion.equals("UNICO")){
+                            CargaUnico(selected);
+
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
         });
     }
+
+
+
 
     //FUNCION CARGAR UN UNICO SUPERMERCADO
     public void CargaUnico(String selected){

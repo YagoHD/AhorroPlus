@@ -29,9 +29,11 @@
         android:layout_height="49dp"
         android:textColor="#14213d"
         android:layout_marginStart="75dp"
+        android:textColorHint="#14213d"
         android:textStyle="italic"
         android:layout_marginTop="36dp"
         android:completionHint="Producto"
+        android:backgroundTint="#14213d"
         android:hint="Producto"
         android:completionThreshold="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,16 +79,16 @@
 
     <EditText
         android:id="@+id/precio"
-        android:layout_width="108dp"
-        android:layout_height="58dp"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
         android:inputType="number"
-        android:shadowColor="#14213d"
-        android:shadowRadius="8"
+        android:shadowColor="@color/black"
+        android:shadowRadius="2"
         android:text="0.0"
-        android:textColor="#a8dadc"
+        android:textColor="#85bb65 "
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.168"
@@ -109,10 +111,24 @@
         android:layout_width="359dp"
 
         android:layout_height="418dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageButonAtras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Buscador" />
+
+    <TextView
+        android:id="@+id/euro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:shadowColor="@color/black"
+        android:text="€"
+        android:textColor="#85bb65 "
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/precio"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
